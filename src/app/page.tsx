@@ -1,4 +1,3 @@
-
 import Header from "./_components/Header"
 import { Button } from "./_components/ui/button"
 import Image from "next/image"
@@ -7,7 +6,7 @@ import BarbershopItem from "./_components/barbershop-item"
 import { quickSearchOptions } from "./_constants/search"
 import BookingItem from "./_components/booking-item"
 import Search from "./_components/search"
-
+import Link from "next/link"
 
 const Page = async () => {
   const barbershops = await db.barbershop.findMany({})
@@ -32,14 +31,16 @@ const Page = async () => {
         {/* Busca Rapida */}
         <div className="mt-6 flex gap-3 overflow-x-scroll [&::-webkit-scrollbar]:hidden">
           {quickSearchOptions.map((option) => (
-            <Button className="gap-2" variant="secondary" key={option.name}>
-              <Image
-                src={option.imageUrl}
-                width={16}
-                height={16}
-                alt={option.name}
-              />
-              {option.name}
+            <Button className="gap-2" variant="secondary" key={option.name} asChild>
+              <Link href={`/barbershops?service=${option.name}`}>
+                <Image
+                  src={option.imageUrl}
+                  width={16}
+                  height={16}
+                  alt={option.name}
+                />
+                {option.name}
+              </Link>
             </Button>
           ))}
         </div>

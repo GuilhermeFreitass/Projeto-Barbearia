@@ -8,7 +8,7 @@ import { CalendarIcon, HomeIcon, LogInIcon, LogOutIcon } from "lucide-react"
 import Link from "next/link"
 import { quickSearchOptions } from "../_constants/search"
 import Image from "next/image"
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
+import { Avatar, AvatarImage } from "./ui/avatar"
 import {
   Dialog,
   DialogContent,
@@ -91,23 +91,27 @@ const SidebarSheet = () => {
       </div>
       <div className="flex flex-col gap-2 border-b border-solid py-5">
         {quickSearchOptions.map((option) => (
-          <Button
-            key={option.name}
-            variant="ghost"
-            className="justify-start gap-2"
-          >
-            <Image
-              src={option.imageUrl}
-              alt={option.name}
-              height={18}
-              width={18}
-            />
-            {option.name}
-          </Button>
+          <SheetClose asChild key={option.name}>
+            <Button variant="ghost" className="justify-start gap-2" asChild>
+              <Link href={`/barbershops?service=${option.name}`}>
+                <Image
+                  src={option.imageUrl}
+                  alt={option.name}
+                  height={18}
+                  width={18}
+                />
+                {option.name}
+              </Link>
+            </Button>
+          </SheetClose>
         ))}
       </div>
       <div className="flex flex-col gap-2 py-5">
-        <Button variant="ghost" className="justify-start" onClick={handleLogout}>
+        <Button
+          variant="ghost"
+          className="justify-start"
+          onClick={handleLogout}
+        >
           <LogOutIcon size={18} />
           Sair da conta
         </Button>
